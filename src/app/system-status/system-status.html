@@ -1,0 +1,85 @@
+<div id="status-page">
+  <h2 class="page-title">System Status</h2>
+  
+  <!-- Summary Banners -->
+  <div class="status-banners">
+    <button (click)="toggleStatusDetails('optimal')" class="status-banner optimal">
+      <span class="banner-icon">✓</span>
+      <div>
+        <p class="banner-title">Optimal</p>
+        <p class="banner-count">1</p>
+      </div>
+    </button>
+
+    <button (click)="toggleStatusDetails('warning')" class="status-banner warning">
+      <span class="banner-icon">⚠</span>
+      <div>
+        <p class="banner-title">Warning</p>
+        <p class="banner-count">1</p>
+      </div>
+    </button>
+
+    <button (click)="toggleStatusDetails('critical')" class="status-banner critical">
+      <span class="banner-icon">!</span>
+      <div>
+        <p class="banner-title">Critical</p>
+        <p class="banner-count">2</p>
+      </div>
+    </button>
+  </div>
+
+  <!-- Detailed Status Cards -->
+  <div id="optimal-details" [class.show]="showOptimal">
+    <div class="status-detail-card optimal">
+      <div class="detail-content">
+        <div class="detail-icon">✓</div>
+        <div class="detail-info">
+          <p class="detail-title">Optimal Condition</p>
+          <p class="detail-description">All systems operating normally. Water level at 85%</p>
+          <p class="detail-time">2 min ago</p>
+        </div>
+        <span class="detail-badge optimal">Optimal</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="warning-details" [class.show]="showWarning">
+    <div class="status-detail-card warning">
+      <div class="detail-content">
+        <div class="detail-icon">⚠</div>
+        <div class="detail-info">
+          <p class="detail-title">Temperature Control</p>
+          <p class="detail-description">Temperature running slightly high. Current: 32°C</p>
+          <p class="detail-time">10 min ago</p>
+        </div>
+        <span class="detail-badge warning">Warning</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="critical-details" [class.show]="showCritical">
+    <div class="status-detail-card critical">
+      <div class="detail-content">
+        <div class="detail-icon">!</div>
+        <div class="detail-info">
+          <p class="detail-title">Water Tank Level Critical</p>
+          <p class="detail-description">Water level critically low. Current: 15%</p>
+          <p class="detail-time">NOW</p>
+        </div>
+        <span class="detail-badge critical">Critical</span>
+      </div>
+    </div>
+
+    <div class="status-detail-card critical">
+      <div class="detail-content">
+        <div class="detail-icon">!</div>
+        <div class="detail-info">
+          <p class="detail-title">Soil Moisture Alert</p>
+          <p class="detail-description">Soil moisture too low in main bed. Current: 18%</p>
+          <p class="detail-time">2 min ago</p>
+        </div>
+        <span class="detail-badge critical">Critical</span>
+      </div>
+    </div>
+  </div>
+</div>

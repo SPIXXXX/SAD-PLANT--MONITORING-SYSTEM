@@ -1,0 +1,90 @@
+<div id="dashboard-page">
+  <h2 class="page-title">Dashboard</h2>
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="card-header">
+        <h5 class="card-title">Soil Moisture</h5>
+        <span class="badge badge-green">40%</span>
+      </div>
+      <canvas id="soilChart" class="chart-canvas"></canvas>
+      <div class="badge-group">
+        <span class="badge-status badge-danger">TOO DRY</span>
+        <span class="badge-status badge-success">40-70% OPTIMAL</span>
+        <span class="badge-status badge-info">TOO WET</span>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="card-header">
+        <h5 class="card-title">Temperature</h5>
+        <span class="badge badge-info">Current: 26°C</span>
+      </div>
+      <canvas id="tempChart" class="chart-canvas"></canvas>
+      <div class="badge-group">
+        <span class="badge-status badge-danger">TOO COLD</span>
+        <span class="badge-status badge-success">20-30° OPTIMAL</span>
+        <span class="badge-status badge-warning">TOO HOT</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-card">
+      <div class="card-header">
+        <h5 class="card-title">Water Tank Level</h5>
+      </div>
+      <canvas id="waterChart" class="chart-canvas"></canvas>
+      <div class="badge-group">
+        <span class="badge-status badge-danger">CRITICAL</span>
+        <span class="badge-status badge-success">60-80% OPTIMAL</span>
+        <span class="badge-status badge-info">OVERFLOW</span>
+      </div>
+    </div>
+    <div class="chart-card">
+      <div class="card-header">
+        <h5 class="card-title">Humidity</h5>
+        <span class="badge badge-purple">Current: 50%</span>
+      </div>
+      <canvas id="humidityChart" class="chart-canvas"></canvas>
+      <div class="badge-group">
+        <span class="badge-status badge-danger">TOO LOW</span>
+        <span class="badge-status badge-success">40-60% OPTIMAL</span>
+        <span class="badge-status badge-info">TOO HIGH</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="charts-row single-chart">
+    <div class="chart-card">
+      <div class="card-header">
+        <h5 class="card-title">Light Exposure</h5>
+        <span class="badge badge-yellow">650 lux</span>
+      </div>
+      <canvas id="lightChart" class="chart-canvas"></canvas>
+      <div class="badge-group">
+        <span class="badge-status badge-danger">TOO LOW</span>
+        <span class="badge-status badge-success">500-800 LUX OPTIMAL</span>
+        <span class="badge-status badge-warning">TOO HIGH</span>
+      </div>
+    </div>
+
+    <div class="status-panel">
+      <div class="status-content">
+        <div class="status-item">
+          <div class="status-icon">🕐</div>
+          <div class="status-info">
+            <p class="status-label">last sensor update</p>
+            <p class="status-value">{{ currentTime }}</p>
+          </div>
+        </div>
+        <div class="status-item">
+          <div class="status-indicator active"></div>
+          <div class="status-info">
+            <p class="status-label">System status</p>
+            <p class="status-value success">All system active</p>
+          </div>
+        </div>
+      </div>
+      <div class="plant-image">🌿</div>
+    </div>
+  </div>
+</div>

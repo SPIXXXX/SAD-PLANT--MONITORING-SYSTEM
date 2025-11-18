@@ -1,0 +1,156 @@
+<div id="watering-page">
+  <h2 class="page-title">Watering Control</h2>
+  
+  <!-- Manual Control Card -->
+  <div class="manual-control-card">
+    <div class="manual-control-header">
+      <span class="manual-control-icon">💧</span>
+      <h3 class="manual-control-title">Manual control</h3>
+    </div>
+
+    <div>
+      <p class="intensity-label">Water Intensity: <span id="intensity-value">{{ intensityValue }}</span>%</p>
+      <input type="range" min="0" max="100" [value]="intensityValue" class="intensity-slider" 
+             (input)="updateIntensity($event)">
+      <div class="intensity-labels">
+        <span>0%</span>
+        <span id="mid-intensity">{{ intensityValue }}%</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <div class="control-buttons">
+      <button class="water-now-btn" (click)="startWatering()">💧 Water now</button>
+      <button class="stop-btn" (click)="stopWatering()">⏹️ Stop</button>
+    </div>
+  </div>
+
+  <!-- Power Status Card -->
+  <div class="power-status-card" [class.active]="wateringActive">
+    <div class="power-status-header">
+      <span class="power-status-icon">⚡</span>
+      <h3 class="power-status-title">Power Status</h3>
+    </div>
+
+    <div class="power-status-content">
+      <div class="power-status-item">
+        <div class="power-indicator"></div>
+        <p class="power-status-text">ON</p>
+        <span class="power-status-badge">Running at {{ intensityValue }}%</span>
+      </div>
+
+      <div class="time-remaining-box">
+        <p class="time-remaining-label">Time remaining:</p>
+        <p class="time-remaining-value">{{ timeRemaining }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Schedule Button -->
+  <button class="add-schedule-btn" (click)="openScheduleModal()">+ add schedule</button>
+
+  <!-- Saved Schedules Section -->
+  <div style="margin-top: 2rem; margin-bottom: 2rem;">
+    <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f0f0f; margin: 0 0 1.5rem 0; font-family: 'Inria Serif', serif;">My Schedules</h3>
+    <div id="schedules-list" style="min-height: 100px;">
+      <div *ngIf="schedules.length === 0" style="text-align: center; color: #999; font-family: Poppins; padding: 2rem;">
+        No schedules yet. Click "add schedule" to create one.
+      </div>
+      <div *ngFor="let schedule of schedules" class="schedule-item">
+        <div>
+          <p style="font-size: 1rem; font-weight: 700; color: #0f0f0f; margin: 0; font-family: 'Inria Serif', serif;">⏰ {{ schedule.time }}</p>
+          <p style="font-size: 0.9rem; color: #666; margin: 0.5rem 0 0 0; font-family: 'Poppins', sans-serif;">{{ schedule.days }}</p>
+        </div>
+        <button (click)="removeSchedule(schedule.id)" class="delete-btn">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scheduled Plants -->
+  <h3 style="font-size: 1.3rem; font-weight: 700; color: #0f0f0f; margin: 2rem 0 1.5rem 0; font-family: 'Inria Serif', serif;">Scheduled Plants</h3>
+  <div class="watering-container show">
+    <div class="watering-card">
+      <div class="watering-header">
+        <h3 class="plant-name">Monstera</h3>
+        <span class="status-badge status-scheduled">Scheduled</span>
+      </div>
+      <div class="watering-info">
+        <div class="info-item">
+          <p class="info-label">Next Watering:</p>
+          <p class="info-value">2025-11-19</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Frequency:</p>
+          <p class="info-value">Every 3 days</p>
+        </div>
+      </div>
+      <button class="water-btn">Water Now</button>
+    </div>
+
+    <div class="watering-card">
+      <div class="watering-header">
+        <h3 class="plant-name">Snake Plant</h3>
+        <span class="status-badge status-scheduled">Scheduled</span>
+      </div>
+      <div class="watering-info">
+        <div class="info-item">
+          <p class="info-label">Next Watering:</p>
+          <p class="info-value">2025-11-21</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Frequency:</p>
+          <p class="info-value">Every 5 days</p>
+        </div>
+      </div>
+      <button class="water-btn">Water Now</button>
+    </div>
+
+    <div class="watering-card">
+      <div class="watering-header">
+        <h3 class="plant-name">Pothos</h3>
+        <span class="status-badge status-urgent">Urgent</span>
+      </div>
+      <div class="watering-info">
+        <div class="info-item">
+          <p class="info-label">Next Watering:</p>
+          <p class="info-value">2025-11-18</p>
+        </div>
+        <div class="info-item">
+          <p class="info-label">Frequency:</p>
+          <p class="info-value">Every 2 days</p>
+        </div>
+      </div>
+      <button class="water-btn">Water Now</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Modal -->
+<div class="modal" [class.active]="showModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span style="font-size: 1.5rem;">⏰</span>
+      <h2 class="modal-title">Schedule</h2>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Time</label>
+      <input type="time" class="form-input" [(ngModel)]="scheduleTime">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Days</label>
+      <div class="day-selector">
+        <div class="day-checkbox" *ngFor="let day of days">
+          <input type="checkbox" [id]="day" [value]="day" (change)="toggleDay(day, $event)">
+          <label [for]="day">{{ day }}</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-buttons">
+      <button class="save-btn" (click)="saveSchedule()">✓ Save</button>
+      <button class="cancel-btn" (click)="closeScheduleModal()">Cancel</button>
+    </div>
+  </div>
+</div>

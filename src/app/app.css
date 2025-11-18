@@ -1,0 +1,38 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.sidebar-icon-wrapper img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) saturate(100%) invert(26%) sepia(9%) saturate(1800%) hue-rotate(72deg) brightness(95%) contrast(85%);
+  transition: var(--transition);
+}
+
+/* Active state - make icon white */
+.sidebar-btn.active .sidebar-icon-wrapper img {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+/* Hover state */
+.sidebar-btn:hover .sidebar-icon-wrapper img {
+  filter: brightness(0) saturate(100%) invert(62%) sepia(90%) saturate(387%) hue-rotate(56deg) brightness(100%) contrast(101%);
+}
+
+/* Make sure the icon wrapper is visible */
+.sidebar-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(48, 218, 39, 0.1);
+  border-radius: 12px;
+  transition: var(--transition);
+}
+
+.sidebar-btn.active .sidebar-icon-wrapper {
+  background: rgba(255, 255, 255, 0.3);
+}
