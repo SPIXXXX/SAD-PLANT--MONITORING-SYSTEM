@@ -3,7 +3,6 @@
   <!-- Navbar -->
   <nav class="navbar">
     <div style="display: flex; align-items: center;">
-      <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
       <div class="navbar-brand">
         🌿 PlantCare
       </div>
@@ -11,15 +10,20 @@
   </nav>
 
   <div class="dashboard-wrapper">
-    <!-- Sidebar -->
+    <!-- Sidebar with toggle button on right -->
     <aside class="sidebar" [class.collapsed]="sidebarCollapsed">
+      <div class="sidebar-header">
+        <span class="sidebar-title" *ngIf="!sidebarCollapsed">Menu</span>
+        <button class="toggle-btn" (click)="toggleSidebar()">☰</button>
+      </div>
+      
       <div class="sidebar-nav">
         <button class="sidebar-btn" [class.active]="currentRoute === '/dashboard'" routerLink="/dashboard">
-         <div class="sidebar-icon-wrapper"><img src="/icons/icons8-dashboard-64.png" alt=""></div>
+          <div class="sidebar-icon-wrapper"><img src="/icons/icons8-dashboard-64.png" alt=""></div>
           <span class="sidebar-label">Dashboard</span>
         </button>
         <button class="sidebar-btn" [class.active]="currentRoute === '/watering'" routerLink="/watering">
-           <div class="sidebar-icon-wrapper"><img src="/icons/icons8-water-drop-64.png" alt=""></div>
+          <div class="sidebar-icon-wrapper"><img src="/icons/icons8-water-drop-64.png" alt=""></div>
           <span class="sidebar-label">Watering</span>
         </button>
         <button class="sidebar-btn" [class.active]="currentRoute === '/system-status'" routerLink="/system-status">
